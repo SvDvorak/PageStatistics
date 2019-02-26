@@ -1,0 +1,32 @@
+{
+  "name": "visitstatistics",
+  "version": "1.0.0",
+  "description": "A simple page visit statistics service",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SvDvorak/VisitStatistics.git"
+  },
+  "keywords": [
+    "statistics",
+    "page",
+    "visit"
+  ],
+  "author": "Andreas Wilcox",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SvDvorak/VisitStatistics/issues"
+  },
+  "homepage": "https://github.com/SvDvorak/VisitStatistics#readme",
+  "dependencies": {
+    "@types/express": "^4.16.1",
+    "express": "^4.16.4",
+    "sqlite": "^3.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.3.3333"
+  }
+}

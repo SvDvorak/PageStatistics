@@ -1,0 +1,17 @@
+version: '3'
+services:
+  statistics:
+    container_name: statistics
+    build: .
+    image: statistics
+    command: node server.js
+    volumes:
+      - database:/home/app/visitstatistics/database
+volumes:
+  database: { }
+
+# Uses external network with routing
+networks:
+  default:
+    external:
+      name: production
