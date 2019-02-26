@@ -4,7 +4,6 @@ services:
     container_name: statistics
     build: .
     image: statistics
-    command: node server.js
     ports:
       - '80:80'
     volumes:

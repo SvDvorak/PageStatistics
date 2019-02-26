@@ -1,11 +1,12 @@
-import * as express from "express";
+import express = require("express");
+import sql = require("sqlite");
 
 export class Server {
     app : express.Express;
+    database!: sql.Database;
+
     constructor() {
         this.app = express();
-        this.app.use(this.allowCrossDomain);
-        this.setupEndpoints();
     }
 
     allowCrossDomain(req: express.Request, response: express.Response, next: any): void {
@@ -25,8 +26,16 @@ export class Server {
         });
     }
 
-    start(): void {
-        this.app.listen(80);
+    async start(): Promise<void> {
+        this.app.use(this.allowCrossDomain);
+        this.setupEndpoints();
+
+        this.database = await sql.open("./database/scores.sqlite");
+        await this.database.migrate({});
+
+        var port = 80;
+        this.app.listen(port);
+        console.log("Started listening on port " + port);
     }
 }
 
