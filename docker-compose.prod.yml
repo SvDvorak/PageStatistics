@@ -5,7 +5,7 @@ services:
     build: .
     image: statistics
     volumes:
-      - database:/home/app/visitstatistics/database
+      - database:/home/app/pagestatistics/database
 volumes:
   database: { }
 

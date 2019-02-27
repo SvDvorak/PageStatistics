@@ -7,6 +7,6 @@ services:
     ports:
       - '80:80'
     volumes:
-      - database:/home/app/visitstatistics/database
+      - database:/home/app/pagestatistics/database
 volumes:
   database: { }

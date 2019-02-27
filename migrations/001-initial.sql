@@ -4,6 +4,7 @@
 
 CREATE TABLE Visit (
   id INTEGER PRIMARY KEY,
+  page TEXT,
   userId TEXT,
   time TEXT
 );
