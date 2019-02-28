@@ -62,8 +62,8 @@ export class TestDataSetup {
 
     async loadTestContent(page: string, offset: number): Promise<void> {
         var command: string[] = [];
-        for (let index = 0; index < 1000000; index++) {
-            var time = moment(moment.now() + index * 100000).subtract(2, "weeks").add(offset*index, "seconds").toISOString();
+        for (let index = 0; index < 100000; index++) {
+            var time = moment(moment.now() + index * 10000).subtract(2, "weeks").add(offset*index, "seconds").toISOString();
             var hash = this.identifiers[Math.floor(Math.random() * this.identifiers.length)]
             command.push(`("${page}", "${hash}", "${time}")`);
         }

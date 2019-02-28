@@ -2,23 +2,16 @@ import express = require("express");
 import bodyParser = require("body-parser");
 import { createHash } from "crypto";
 import { Database } from "./database";
-import moment = require("moment");
 import { TestDataSetup } from "./testDataSetup";
 
 
-class PageStats {
-    page: string;
-    lastHour: number;
-    lastDay: number;
-    lastWeek: number;
-
-    constructor(page: string, lastHour: number, lastDay: number, lastWeek: number) {
-        this.page = page;
-        this.lastHour = lastHour;
-        this.lastDay = lastDay;
-        this.lastWeek = lastWeek;
-    }
+class Stats {
+    lastHour!: number;
+    lastDay!: number;
+    lastWeek!: number;
 }
+
+type StatsDictionary = { [page: string]: Stats};
 
 export class Server {
     app : express.Express;
@@ -30,7 +23,7 @@ export class Server {
         this.database = new Database();
     }
 
-    allowCrossDomain(req: express.Request, response: express.Response, next: any): void {
+    allowCrossDomain(_req: express.Request, response: express.Response, next: any): void {
         response.header('Access-Control-Allow-Origin', '*');
         response.header('Access-Control-Allow-Methods', 'POST');
         response.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -40,7 +33,7 @@ export class Server {
 
     setupEndpoints() {
         this.app.post("/visit", (req, res) => this.postVisit(req, res));
-        this.app.get("/visits", (req, res) => this.getVisits(req, res));
+        this.app.get("/visits", (_req, res) => this.getVisits(res));
     }
 
     async postVisit(request: express.Request, response: express.Response): Promise<void> {
@@ -48,33 +41,36 @@ export class Server {
             response.send(400);
         }
 
-        //TEST
-        const testText = "Posted! " + request.ip + " at " + new Date().toISOString();
-        console.log(testText);
-
         var userId = this.hash(request.ip);
         await this.database.addVisit(request.body.page, userId);
         
-        //TEST
-        //var row = await this.database.all(`SELECT * FROM Visit WHERE userId = "${request.ip}"`);
         response.status(200);
         response.send();
     }
-    async getVisits(request: express.Request, response: express.Response): Promise<void> {
-        //TEST
-        //console.log(`Start: "${startDate}" End: "${endDate}"`);
-        var pageStats: PageStats[] = [];
-        /*var pages = await this.database.getPages();
-        for (const page of pages) {
-            var lastHour = await this.database.getLastHour(page);
-            var lastDay = await this.database.getLastDay(page);
-            var lastWeek = await this.database.getLastWeek(page);
-            pageVisits.push(new PageVisit(page, lastHour, lastDay, lastWeek))
-            console.log(`"${page}" Last hour: "${lastHour}" Last day: "${lastDay}" Last week: "${lastWeek}"`);
-        }*/
-        console.log("FIN");
+
+    async getVisits(response: express.Response): Promise<void> {
+        var pageStats: StatsDictionary = { };
+        var lastHour = await this.database.getLastHour();
+        for (const visits of lastHour) {
+            this.getOrCreate(pageStats, visits.page).lastHour = visits.count;
+        }
+        var lastDay = await this.database.getLastDay();
+        for (const visits of lastDay) {
+            this.getOrCreate(pageStats, visits.page).lastDay = visits.count;
+        }
+        var lastWeek = await this.database.getLastWeek();
+        for (const visits of lastWeek) {
+            this.getOrCreate(pageStats, visits.page).lastWeek = visits.count;
+        }
+
         response.status(200);
         response.send(pageStats);
+    }
+
+    private getOrCreate(stats: StatsDictionary, index: string): Stats {
+        if(stats[index] == undefined)
+            stats[index] = new Stats();
+        return stats[index];
     }
 
     async start(): Promise<void> {
@@ -96,7 +92,10 @@ export class Server {
 }
 
 var server = new Server();
-var setup = new TestDataSetup(server);
 var started = server.start();
+var setup = new TestDataSetup(server);
 
-started.then(async () => setup.loadAll()).then(() => console.log("Finished loading data"));
+// Fill up database with test data
+/*started
+    .then(async () => setup.loadAll())
+    .then(() => console.log("Finished loading data"));*/

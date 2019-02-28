@@ -16,6 +16,7 @@ export class Database {
 
     async load(): Promise<void> {
         this.database = await sql.open("./database/statistics.sqlite");
+        // WHEN YOU WANT TO RERUN LAST MIGRATION STEP
         //await this.database.migrate({ force: 'last' });
         await this.database.migrate({ });
     }
@@ -26,29 +27,23 @@ export class Database {
             ((?), "${userId}", datetime('now'))`, page);
     }
 
-    async fakeVisit(page: string, userId: string, time: moment.Moment): Promise<void> {
-        await this.database.run(
-            `INSERT INTO Visit (page, userId, time) VALUES
-            ("${page}", "${userId}", datetime('now'))`);
-    }
-
-    async getLastHour(): Promise<PageVisit> {
+    async getLastHour(): Promise<PageVisit[]> {
         return this.getVisits(moment().subtract(1, "hour"), moment());
     }
 
-    async getLastDay(): Promise<PageVisit> {
+    async getLastDay(): Promise<PageVisit[]> {
         return this.getVisits(moment().subtract(1, "day"), moment());
     }
 
-    async getLastWeek(): Promise<PageVisit> {
+    async getLastWeek(): Promise<PageVisit[]> {
         return this.getVisits(moment().subtract(1, "week"), moment());
     }
 
-    private async getVisits(start: moment.Moment, end: moment.Moment): Promise<PageVisit> {
+    private async getVisits(start: moment.Moment, end: moment.Moment): Promise<PageVisit[]> {
         var startString = start.toISOString();
         var endString = end.toISOString();
         return await this.database
-            .get(`SELECT page, COUNT(*) AS count FROM Visit AND time BETWEEN "${startString}" AND "${endString}" GROUP BY page`)
-            .then(x => new PageVisit(x.page, x.count));
+            .all(`SELECT page, COUNT(*) AS count FROM Visit WHERE time BETWEEN "${startString}" AND "${endString}" GROUP BY page`)
+            .then(results => results as PageVisit[]);
     }
 }
