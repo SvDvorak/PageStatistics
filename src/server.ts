@@ -68,7 +68,7 @@ export class Server {
     }
 
     private getOrCreate(stats: StatsDictionary, index: string): Stats {
-        if(stats[index] == undefined)
+        if(!(index in stats))
             stats[index] = new Stats();
         return stats[index];
     }
