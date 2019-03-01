@@ -1,19 +1,11 @@
-<!doctype html>
-<html ng-app="statistics">
+<!DOCTYPE html>
+<html>
   <head>
-    <title>Page Statistics</title>
-    <script src="./../angular.min.js"></script>
-    <script src="view-model.js"></script>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
-  <body ng-controller="statisticsController">
-    <ul class="tiles">
-      <li class="tile" ng-repeat="tile in tiles track by $index">
-          <div>
-            <p class="tile_header">{{ tile.header }}</p>
-            <p class="tile_body">{{ tile.body }}</p>
-          </div>
-      </li>
-    </ul>
+  <body>
+    <div id="app"></div>
   </body>
 </html>

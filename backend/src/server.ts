@@ -3,15 +3,8 @@ import bodyParser = require("body-parser");
 import { createHash } from "crypto";
 import { Database } from "./database";
 import { TestDataSetup } from "./testDataSetup";
+import { Stats, StatsDictionary } from "../../common/stats";
 
-
-class Stats {
-    lastHour!: number;
-    lastDay!: number;
-    lastWeek!: number;
-}
-
-type StatsDictionary = { [page: string]: Stats};
 
 export class Server {
     app : express.Express;
@@ -96,6 +89,6 @@ var started = server.start();
 var setup = new TestDataSetup(server);
 
 // Fill up database with test data
-/*started
-    .then(async () => setup.loadAll())
-    .then(() => console.log("Finished loading data"));*/
+// started
+//     .then(async () => setup.loadAll())
+//     .then(() => console.log("Finished loading data"));
