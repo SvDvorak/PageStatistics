@@ -1,10 +1,10 @@
 {
   "name": "pagestatistics",
   "version": "1.0.0",
-  "description": "A simple page visit statistics service",
+  "description": "Backend for page statistics service",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
