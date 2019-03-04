@@ -11,6 +11,7 @@ import TileGroupComponent from "./TileGroup.vue";
 import { Stats, StatsDictionary } from "../stats";
 import TileGroup from "./tileGroup";
 import Tile from "./tile";
+import axios from "axios";
 
 @Component({
     components: {
@@ -38,6 +39,11 @@ export default class Root extends Vue {
                 "lastWeek": 168
             }
         }
+
+        axios.get('/visits')
+            .then(response => {
+                console.log(response);
+            });
 
         this.tileGroups = this.transformToTileGroups(data);
     }
