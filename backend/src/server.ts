@@ -72,7 +72,7 @@ export class Server {
 
         await this.database.load();
 
-        var port = 80;
+        var port = 3000;
         this.app.listen(port);
         console.log("Started listening on port " + port);
     }

@@ -1,5 +1,6 @@
 <template>
     <div class="rootContainer">
+        <p v-if="serviceIsDown">Service is unreachable!</p>
         <!-- <img class="logo" src="../logo.svg" /> -->
         <div is="tileGroup" v-for="(tileGroup, groupIndex) in tileGroups" :key="groupIndex" :title="tileGroup.title" :tiles="tileGroup.tiles" />
     </div>
@@ -20,6 +21,7 @@ import axios from "axios";
 })
 export default class Root extends Vue {
     tileGroups: TileGroup[] = [];
+    serviceIsDown: boolean = false;
 
     mounted() {
         var data: StatsDictionary = { 
@@ -42,10 +44,12 @@ export default class Root extends Vue {
 
         axios.get('/visits')
             .then(response => {
-                console.log(response);
+                this.tileGroups = this.transformToTileGroups(response.data);
+                this.serviceIsDown = false;
+            })
+            .catch(error => {
+                this.serviceIsDown = true;
             });
-
-        this.tileGroups = this.transformToTileGroups(data);
     }
 
     private transformToTileGroups(data: any) : TileGroup[] {

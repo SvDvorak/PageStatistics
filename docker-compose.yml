@@ -4,13 +4,13 @@ services:
     container_name: statistics_backend
     build: backend/.
     image: statistics_backend
-    ports:
-      - '80:80'
     volumes:
       - database:/home/app/pagestatistics/database
-  #statistics-web:
-    #container_name: statistics_web
-    #build: web/.
-    #image: statistics_web
+  statistics-web:
+    container_name: statistics_web
+    build: web/.
+    image: statistics_web
+    ports:
+      - '80:80'
 volumes:
   database: { }

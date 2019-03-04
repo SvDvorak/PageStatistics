@@ -40,8 +40,8 @@ export class Database {
     }
 
     private async getVisits(start: moment.Moment, end: moment.Moment): Promise<PageVisit[]> {
-        var startString = start.toISOString();
-        var endString = end.toISOString();
+        var startString = start.toISOString().replace("T", " ");
+        var endString = end.toISOString().replace("T", " ");
         return await this.database
             .all(`SELECT page, COUNT(*) AS count FROM Visit WHERE time BETWEEN "${startString}" AND "${endString}" GROUP BY page`)
             .then(results => results as PageVisit[]);
