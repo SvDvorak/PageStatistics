@@ -1,12 +1,16 @@
 version: '3'
 services:
-  statistics:
-    container_name: statistics
+  statistics-backend:
+    container_name: statistics_backend
     build: backend/.
-    image: statistics
+    image: statistics_backend
     ports:
       - '80:80'
     volumes:
       - database:/home/app/pagestatistics/database
+  #statistics-web:
+    #container_name: statistics_web
+    #build: web/.
+    #image: statistics_web
 volumes:
   database: { }

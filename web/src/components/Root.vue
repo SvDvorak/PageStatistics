@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import TileGroupComponent from "./TileGroup.vue";
-import { Stats, StatsDictionary } from "../../../common/stats";
+import { Stats, StatsDictionary } from "../stats";
 import TileGroup from "./tileGroup";
 import Tile from "./tile";
 

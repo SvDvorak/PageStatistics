@@ -3,7 +3,7 @@ import bodyParser = require("body-parser");
 import { createHash } from "crypto";
 import { Database } from "./database";
 import { TestDataSetup } from "./testDataSetup";
-import { Stats, StatsDictionary } from "../../common/stats";
+import { Stats, StatsDictionary } from "./stats";
 
 
 export class Server {
