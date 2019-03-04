@@ -16,5 +16,21 @@ export default class Tile extends Vue {
 </script>
 
 <style>
+.tile {
+    background: mediumseagreen;
+    width: 180px;
+    height: 180px;
+    margin: 10px;
+    padding: 20px;
+}
 
+    .tile_header {
+        font-size: 18px;
+        margin-top: 0px;
+        margin-bottom: 5px;
+    }
+
+    .tile_body {
+        font-size: 30px;
+    }
 </style>
