@@ -18,7 +18,7 @@ module.exports = {
       title: 'Leitner Calendar',
       template: './src/index.html'
     }),
-    //new WebappWebpackPlugin('./src/icon.svg')
+    new WebappWebpackPlugin('./src/logo.svg')
   ],
   module: {
     rules: [

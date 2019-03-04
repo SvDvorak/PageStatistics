@@ -1,7 +1,8 @@
 <template>
     <div class="rootContainer">
-        <p v-if="serviceIsDown">Service is unreachable!</p>
-        <!-- <img class="logo" src="../logo.svg" /> -->
+        <img class="logo" src="../logo.svg" />
+        <h1 class="pageTitle">Page Statistics</h1>
+        <p class="error" v-if="serviceIsDown">Service is unreachable!</p>
         <div is="tileGroup" v-for="(tileGroup, groupIndex) in tileGroups" :key="groupIndex" :title="tileGroup.title" :tiles="tileGroup.tiles" />
     </div>
 </template>
@@ -87,12 +88,13 @@ body {
 .rootContainer {
     display: flex;
     flex-direction: column;
+    margin-top: 1em;
 }
 
-/* .logo {
+.logo {
     align-self: center;
-    width: 24em;
-} */
+    width: 12em;
+}
 
 
 h1 {
@@ -107,5 +109,13 @@ p {
     text-align: center;
 	color: antiquewhite;
     margin: 0.5em 0em;
+}
+
+.error {
+    color: #444444
+}
+
+.pageTitle {
+    align-self: center;
 }
 </style>
