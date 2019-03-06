@@ -7,7 +7,7 @@ COPY package.json package-lock.json /home/build/
 RUN npm install
 
 COPY . /home/build
-RUN npm run build
+RUN npm run build && cp src/logVisit.js dist/logVisit.js
 
 
 FROM nginx as hoster

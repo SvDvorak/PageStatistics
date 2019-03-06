@@ -38,7 +38,7 @@ export class Server {
         await this.database.addVisit(request.body.page, userId);
         
         response.status(200);
-        response.send();
+        response.send({ });
     }
 
     async getVisits(response: express.Response): Promise<void> {

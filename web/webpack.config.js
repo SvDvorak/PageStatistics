@@ -3,6 +3,7 @@ var webpack = require('webpack')
 var VueLoaderPlugin = require('vue-loader/lib/plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var WebappWebpackPlugin = require('webapp-webpack-plugin')
+var CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -18,7 +19,10 @@ module.exports = {
       title: 'Leitner Calendar',
       template: './src/index.html'
     }),
-    new WebappWebpackPlugin('./src/logo.svg')
+    new WebappWebpackPlugin('./src/logo.svg'),
+    new CopyPlugin([
+      './src/logVisit.js'
+    ])
   ],
   module: {
     rules: [
