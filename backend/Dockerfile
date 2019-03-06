@@ -1,7 +1,12 @@
 FROM node as builder
 
-RUN useradd --user-group --create-home --shell /bin/false app && \
-    setcap 'cap_net_bind_service=+ep' $(eval readlink -f `which node`)
+RUN \
+ apt-get update && \
+ apt-get upgrade && \
+ apt-get install libcap2-bin -y && \
+ setcap 'cap_net_bind_service=+ep' $(eval readlink -f `which node`)
+
+RUN useradd --user-group --create-home --shell /bin/false app
 
 ENV HOME=/home/app
 
