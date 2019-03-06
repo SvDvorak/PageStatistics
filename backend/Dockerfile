@@ -2,7 +2,7 @@ FROM node as builder
 
 RUN \
  apt-get update && \
- apt-get upgrade && \
+ apt-get upgrade -y && \
  apt-get install libcap2-bin -y && \
  setcap 'cap_net_bind_service=+ep' $(eval readlink -f `which node`)
 
@@ -20,6 +20,7 @@ RUN npm install
 USER root
 COPY . $HOME/pagestatistics
 RUN \
+ mkdir database && \
  find . \( -path ./node_modules \) -prune -o -user root -print0 | xargs -0 chown app:app && \
  node_modules/typescript/bin/tsc
 
