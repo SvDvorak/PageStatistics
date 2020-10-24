@@ -1,4 +1,4 @@
-FROM node:12.19.0 as builder
+FROM node:10.22.1 as builder
 
 RUN \
  apt-get update && \
