@@ -24,7 +24,7 @@
   "author": "Andreas Wilcox",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "copy-webpack-plugin": "^5.1.0",
     "css-loader": "^2.1.1",
     "file-loader": "^3.0.1",
