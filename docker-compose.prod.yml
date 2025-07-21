@@ -1,4 +1,3 @@
-version: '3'
 services:
   statistics-backend:
     container_name: statistics_backend
@@ -16,5 +15,5 @@ volumes:
 # Uses external network with routing
 networks:
   default:
-    external:
-      name: production
+    name: production
+    external: true
