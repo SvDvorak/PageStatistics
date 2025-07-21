@@ -1,9 +1,9 @@
-var path = require('path')
-var webpack = require('webpack')
-var VueLoaderPlugin = require('vue-loader/lib/plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var WebappWebpackPlugin = require('webapp-webpack-plugin')
-var CopyPlugin = require('copy-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
+const { VueLoaderPlugin } = require('vue-loader')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -19,10 +19,21 @@ module.exports = {
       title: 'Leitner Calendar',
       template: './src/index.html'
     }),
-    new WebappWebpackPlugin('./src/logo.svg'),
-    new CopyPlugin([
-      './src/logVisit.js'
-    ])
+    new FaviconsWebpackPlugin({
+      logo: './src/logo.svg',
+      mode: 'webapp',
+      devMode: 'webapp',
+      favicons: {
+        developerName: 'Andreas Wilcox',
+        background: '#fff',
+        theme_color: '#333'
+      }
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: './src/logVisit.js', to: 'logVisit.js' }
+      ]
+    })
   ],
   module: {
     rules: [
@@ -83,11 +94,11 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: 'eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = 'source-map'
   module.exports.mode = 'production'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([

@@ -1,4 +1,4 @@
-FROM node:10.22.1 as builder
+FROM node:18 as builder
 
 WORKDIR /home/build/
 
