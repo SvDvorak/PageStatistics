@@ -1,7 +1,7 @@
 {
-  "name": "leitnercalendar",
+  "name": "pagestatistics",
   "version": "1.0.0",
-  "description": "A webpage for you to easily keep track of which Leitner cards to review",
+  "description": "My webpage for keeping track of number of visits to my different pages",
   "private": true,
   "watch": {
     "build": {
@@ -16,11 +16,6 @@
     "watch": "npm-watch",
     "build": "webpack"
   },
-  "keywords": [
-    "leitner",
-    "schedule",
-    "calendar"
-  ],
   "author": "Andreas Wilcox",
   "license": "MIT",
   "dependencies": {

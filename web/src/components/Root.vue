@@ -1,6 +1,6 @@
 <template>
     <div class="rootContainer">
-        <img class="logo" src="../logo.svg" />
+        <img class="logo" src="logo.svg" />
         <h1 class="pageTitle">Page Statistics</h1>
         <p class="error" v-if="serviceIsDown">Service is unreachable!</p>
         <div is="tileGroup" v-for="(tileGroup, groupIndex) in tileGroups" :key="groupIndex" :title="tileGroup.title" :tiles="tileGroup.tiles" />

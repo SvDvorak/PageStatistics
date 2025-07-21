@@ -16,7 +16,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Leitner Calendar',
+      title: 'Page Statistics',
       template: './src/index.html'
     }),
     new FaviconsWebpackPlugin({
@@ -31,6 +31,7 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
+        { from: './src/logo.svg', to: 'logo.svg' },
         { from: './src/logVisit.js', to: 'logVisit.js' }
       ]
     })
