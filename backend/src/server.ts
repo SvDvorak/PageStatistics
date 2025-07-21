@@ -86,10 +86,10 @@ export class Server {
 }
 
 var server = new Server();
-var started = server.start();
-var setup = new TestDataSetup(server);
+server.start();
 
 // Fill up database with test data
-// started
+//var setup = new TestDataSetup(server);
+//started
 //     .then(async () => setup.loadAll())
 //     .then(() => console.log("Finished loading data"));

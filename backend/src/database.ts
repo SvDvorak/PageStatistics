@@ -1,3 +1,4 @@
+import * as sqlite3 from 'sqlite3'
 import sqlite = require("sqlite");
 import moment = require("moment");
 
@@ -15,7 +16,11 @@ export class Database {
     database!: sqlite.Database;
 
     async load(): Promise<void> {
-        this.database = await sqlite.open({ filename: "./database/statistics.sqlite", driver: sqlite.Database });
+        this.database = await sqlite.open({
+            filename: "./database/statistics.sqlite",
+            driver: sqlite3.Database,
+            mode: sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE
+        });
         // WHEN YOU WANT TO RERUN LAST MIGRATION STEP
         //await this.database.migrate({ force: 'last' });
         await this.database.migrate({ });
@@ -44,6 +49,6 @@ export class Database {
         var endString = end.toISOString().replace("T", " ");
         return await this.database
             .all(`SELECT page, COUNT(*) AS count FROM Visit WHERE time BETWEEN "${startString}" AND "${endString}" GROUP BY page`)
-            .then(results => results as PageVisit[]);
+            .then((results: PageVisit[]) => results as PageVisit[]);
     }
 }
