@@ -1,4 +1,4 @@
-import sql = require("sqlite");
+import sqlite = require("sqlite");
 import moment = require("moment");
 
 export class PageVisit {
@@ -12,10 +12,10 @@ export class PageVisit {
 }
 
 export class Database {
-    database!: sql.Database;
+    database!: sqlite.Database;
 
     async load(): Promise<void> {
-        this.database = await sql.open("./database/statistics.sqlite");
+        this.database = await sqlite.open({ filename: "./database/statistics.sqlite", driver: sqlite.Database });
         // WHEN YOU WANT TO RERUN LAST MIGRATION STEP
         //await this.database.migrate({ force: 'last' });
         await this.database.migrate({ });

@@ -30,8 +30,9 @@ export class Server {
     }
 
     async postVisit(request: express.Request, response: express.Response): Promise<void> {
-        if(!request.body.page) {
+        if(!request.body.page || request.ip == undefined) {
             response.send(400);
+            return;
         }
 
         var userId = this.hash(request.ip);
