@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://pagestatistics.anwilc.com/logo.svg?32f3963fb7f0bc47b00926e38b55dd95" alt="Logo" width="250" />
+  <img src="https://pagestatistics.anwilc.com/logo.svg" alt="Logo" width="250" />
 </p>
 <br>
 
